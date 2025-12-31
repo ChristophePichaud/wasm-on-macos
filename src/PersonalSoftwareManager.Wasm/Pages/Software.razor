@@ -1,0 +1,59 @@
+@page "/software"
+@inject HttpClient Http
+
+<PageTitle>Software</PageTitle>
+
+<h1>Personal Software</h1>
+
+<p>Manage your personal software projects.</p>
+
+@if (softwareList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!softwareList.Any())
+{
+    <p><em>No software found. Add your first software project!</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Version</th>
+                <th>Description</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var software in softwareList)
+            {
+                <tr>
+                    <td>@software.Name</td>
+                    <td>@software.Version</td>
+                    <td>@software.Description</td>
+                    <td>@software.CreatedAt.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<PersonalSoftwareManager.Contracts.Models.Software>? softwareList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            softwareList = await Http.GetFromJsonAsync<List<PersonalSoftwareManager.Contracts.Models.Software>>("api/software")
+                ?? new List<PersonalSoftwareManager.Contracts.Models.Software>();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading software: {ex.Message}");
+            softwareList = new List<PersonalSoftwareManager.Contracts.Models.Software>();
+        }
+    }
+}

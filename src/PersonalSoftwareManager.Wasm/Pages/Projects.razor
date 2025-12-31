@@ -1,0 +1,61 @@
+@page "/projects"
+@inject HttpClient Http
+
+<PageTitle>Open Source Projects</PageTitle>
+
+<h1>Open Source Projects</h1>
+
+<p>Track your favorite open source projects from GitHub.</p>
+
+@if (projectsList == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!projectsList.Any())
+{
+    <p><em>No projects found. Add your first open source project!</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Owner</th>
+                <th>Language</th>
+                <th>Stars</th>
+                <th>GitHub URL</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in projectsList)
+            {
+                <tr>
+                    <td>@project.Name</td>
+                    <td>@project.Owner</td>
+                    <td>@project.Language</td>
+                    <td>@project.Stars</td>
+                    <td><a href="@project.GitHubUrl" target="_blank">View on GitHub</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<PersonalSoftwareManager.Contracts.Models.OpenSourceProject>? projectsList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            projectsList = await Http.GetFromJsonAsync<List<PersonalSoftwareManager.Contracts.Models.OpenSourceProject>>("api/opensourceprojects")
+                ?? new List<PersonalSoftwareManager.Contracts.Models.OpenSourceProject>();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading projects: {ex.Message}");
+            projectsList = new List<PersonalSoftwareManager.Contracts.Models.OpenSourceProject>();
+        }
+    }
+}
