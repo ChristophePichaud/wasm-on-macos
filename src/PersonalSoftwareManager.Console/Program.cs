@@ -10,7 +10,7 @@ Console.WriteLine();
 // Setup dependency injection
 var services = new ServiceCollection();
 services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql("Host=localhost;Database=PersonalSoftwareManager;Username=postgres;Password=postgres"));
+    options.UseNpgsql("Host=localhost;Database=PersonalSoftwareManager;Username=postgres;Password=admin"));
 
 var serviceProvider = services.BuildServiceProvider();
 
