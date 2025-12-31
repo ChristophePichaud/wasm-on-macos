@@ -61,33 +61,24 @@ Update the connection string in `src/PersonalSoftwareManager.Api/appsettings.jso
 dotnet build
 ```
 
-### 4. Run the API
+### 4. Run the Application
 
+See the [Getting Started Guide](Docs/GettingStarted.md) for detailed instructions on running the API, Blazor WASM app, and console application.
+
+**Quick Run:**
 ```bash
+# Terminal 1 - API
 cd src/PersonalSoftwareManager.Api
 dotnet run
-```
 
-The API will be available at `https://localhost:5001`
-
-### 5. Run the Blazor WASM App
-
-Open a new terminal:
-
-```bash
+# Terminal 2 - Blazor WASM
 cd src/PersonalSoftwareManager.Wasm
-dotnet run
-```
-
-### 6. Test with Console App (Optional)
-
-```bash
-cd src/PersonalSoftwareManager.Console
 dotnet run
 ```
 
 ## Documentation
 
+- [Getting Started Guide](Docs/GettingStarted.md) - Complete setup and running instructions
 - [Project Creation Guide](Docs/ProjectCreation.md) - Step-by-step guide to recreate the project
 - [Project Specifications](Docs/ProjectSpecifications.md) - Detailed technical specifications
 
